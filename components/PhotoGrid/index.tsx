@@ -13,6 +13,7 @@ import {
   FlatList,
   HStack,
   Icon,
+  useBreakpointValue,
 } from "native-base";
 import { useStore } from "../../query";
 import Paginator from "../Paginator";
@@ -22,15 +23,16 @@ const PhotoGrid: React.FC<{
   title?: string;
   hidePaginator?: boolean;
 }> = ({ hidePaginator = false, title }) => {
-  const {
-    setSelectedCard,
-    setShowModal,
-    displayedPhotos,
-    searchQuery,
-    sortPreference,
-  } = useStore();
+  const { setSelectedCard, setShowModal, displayedPhotos, searchQuery } =
+    useStore();
 
-  console.log("photogrid", displayedPhotos);
+  const columns = useBreakpointValue({
+    xl: 4,
+    lg: 4,
+    md: 3,
+    sm: 2,
+    base: 2,
+  });
 
   return (
     <>
@@ -48,7 +50,7 @@ const PhotoGrid: React.FC<{
         )}
 
         {!title && (
-          <Text fontWeight="semibold" fontSize={18}>
+          <Text testID="grid-title" fontWeight="semibold" fontSize={18}>
             {searchQuery.length === 0
               ? "Trending Today"
               : `Showing photos for "${searchQuery}"`}
@@ -69,15 +71,17 @@ const PhotoGrid: React.FC<{
       {displayedPhotos?.length > 0 && (
         <View>
           <FlatList
+            key={columns}
+            keyExtractor={(item) => item.id}
+            scrollEnabled={true}
+            data={displayedPhotos}
+            numColumns={Platform?.OS === "web" ? columns : 1}
             contentContainerStyle={{
               paddingBottom: Platform?.OS === "web" ? 0 : 750,
             }}
-            scrollEnabled={true}
-            data={displayedPhotos}
-            numColumns={Platform?.OS === "web" ? 4 : 1}
-            keyExtractor={(item) => item.id}
             renderItem={({ item, index }) => (
               <TouchableHighlight
+                testID="displayed-image-button"
                 style={styles.item}
                 onPress={() => {
                   setSelectedCard(index);
@@ -161,7 +165,6 @@ const styles = StyleSheet.create({
     margin: 4,
     borderRadius: 8,
     height: Platform?.OS === "web" ? Dimensions.get("window").width / 4 : 350,
-    maxWidth:
-      Platform?.OS === "web" ? Dimensions.get("window").width / 4 : "100%",
+    maxWidth: "100%",
   },
 });

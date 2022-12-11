@@ -15,11 +15,12 @@ const Paginator = () => {
         }}
         isDisabled={page === 1}
         onPress={() => setPage(page - 1)}
+        testID="prev-btn"
       />
 
       {page && (
         <Button variant="subtle" size="sm">
-          <Text>Page {page}</Text>
+          <Text testID="pagination-label">Page {page}</Text>
         </Button>
       )}
 
@@ -31,6 +32,7 @@ const Paginator = () => {
         }}
         onPress={() => setPage(page + 1)}
         isDisabled={page === 50} // set to 50 since unsplash API will rate limit at 50 queries per hour.
+        testID="next-btn"
       />
     </HStack>
   );

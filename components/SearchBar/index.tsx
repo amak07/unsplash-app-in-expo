@@ -25,7 +25,6 @@ function SearchBar() {
     setPage,
     setSearchQuery,
     setDisplayedPhotos,
-    setSortPreference,
 
     // state variables
     page,
@@ -81,6 +80,7 @@ function SearchBar() {
         <VStack w="100%" alignSelf="center" justifyContent="center">
           <FormControl>
             <Input
+              testID="unsplash-search"
               value={userSearchInput}
               onSubmitEditing={() => onSearchSumbit()}
               onChangeText={(value) => setUserSearchInput(value)}

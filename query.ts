@@ -160,7 +160,6 @@ export const useStore = create<AppStore>((set) => ({
 }));
 
 export const useSearchForPhotos = (searchPhrase: string, page: number) => {
-  console.log("search", searchPhrase);
   const SearchPhotos = async () => {
     const results = await fetch(
       `https://api.unsplash.com/search/photos?client_id=2dj2v7k4BkTZ3l9wH3uNO0lEI462mnEQIYdflynxp2k&count=10&page=${page}&query=${searchPhrase}`

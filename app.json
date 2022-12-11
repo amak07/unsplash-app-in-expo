@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "unsplash-expo",
-    "slug": "unsplash-expo",
+    "slug": "unsplash-api-for-nutrien",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -28,6 +28,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f488c4db-8eda-4a54-8e45-7f0892f12ecc"
+      }
+    },
+    "owner": "amak07"
   }
 }
